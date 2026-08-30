@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlayCircle, Users, Clock, ShieldCheck, ArrowRight, Bot } from 'lucide-react';
+import { PlayCircle, Users, Clock, ShieldCheck, ArrowRight, Bot, AlertTriangle, CheckCircle } from 'lucide-react';
 
 export const Simulation: React.FC = () => {
   const [patientCount, setPatientCount] = useState<number>(100);
@@ -151,39 +151,53 @@ export const Simulation: React.FC = () => {
       </div>
 
       {simResults && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">
-            <h3 className="text-sm font-bold text-slate-700 uppercase mb-3">Baseline: First-Come-First-Served (FCFS)</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between border-b py-1">
-                <span className="text-slate-600">High-Risk Patient Wait:</span>
-                <span className="font-bold text-red-600">{simResults.fcfs.high_risk_wait_mins} mins</span>
-              </div>
-              <div className="flex justify-between border-b py-1">
-                <span className="text-slate-600">Average Patient Wait:</span>
-                <span className="font-semibold">{simResults.fcfs.avg_wait_mins} mins</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-slate-600">Priority Inversions:</span>
-                <span className="font-semibold">{simResults.fcfs.priority_inversions}</span>
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+            <CheckCircle className="h-5 w-5" />
+            <span className="font-semibold text-sm">Simulation complete. AI Priority Queue reduced high-risk wait times by {simResults.improvement_pct}%.</span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 shadow-sm">
+              <h3 className="text-sm font-bold text-slate-700 uppercase mb-4 flex items-center gap-2">
+                <Clock className="h-4 w-4" /> Baseline: FCFS Queue
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+                  <span className="text-slate-600 flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-slate-400" /> High-Risk Wait:</span>
+                  <span className="font-bold text-red-600 text-lg">{simResults.fcfs.high_risk_wait_mins}m</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+                  <span className="text-slate-600 flex items-center gap-2"><Users className="h-4 w-4 text-slate-400" /> Average Wait:</span>
+                  <span className="font-semibold">{simResults.fcfs.avg_wait_mins}m</span>
+                </div>
+                <div className="flex justify-between items-center pt-1">
+                  <span className="text-slate-600">Priority Inversions:</span>
+                  <span className="font-semibold">{simResults.fcfs.priority_inversions}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="bg-brand-50 border border-brand-200 rounded-lg p-5">
-            <h3 className="text-sm font-bold text-brand-900 uppercase mb-3">AI-Assisted Risk-Aware Priority Queue</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between border-b border-brand-200 py-1">
-                <span className="text-brand-800">High-Risk Patient Wait:</span>
-                <span className="font-bold text-emerald-700">{simResults.ai_priority.high_risk_wait_mins} mins</span>
+            <div className="bg-gradient-to-br from-brand-50 to-emerald-50 border border-brand-200 rounded-lg p-5 shadow-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                <Bot className="w-24 h-24 text-brand-500" />
               </div>
-              <div className="flex justify-between border-b border-brand-200 py-1">
-                <span className="text-brand-800">Average Patient Wait:</span>
-                <span className="font-semibold text-brand-900">{simResults.ai_priority.avg_wait_mins} mins</span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-brand-800">High-Risk Wait Reduction:</span>
-                <span className="font-bold text-emerald-700">-{simResults.improvement_pct}%</span>
+              <h3 className="text-sm font-bold text-brand-900 uppercase mb-4 flex items-center gap-2 relative z-10">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" /> AI Risk-Aware Queue
+              </h3>
+              <div className="space-y-3 text-sm relative z-10">
+                <div className="flex justify-between items-center border-b border-brand-200/60 pb-2">
+                  <span className="text-brand-800 font-medium flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-brand-400" /> High-Risk Wait:</span>
+                  <span className="font-bold text-emerald-700 text-lg">{simResults.ai_priority.high_risk_wait_mins}m</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-brand-200/60 pb-2">
+                  <span className="text-brand-800 font-medium flex items-center gap-2"><Users className="h-4 w-4 text-brand-400" /> Average Wait:</span>
+                  <span className="font-semibold text-brand-900">{simResults.ai_priority.avg_wait_mins}m</span>
+                </div>
+                <div className="flex justify-between items-center pt-1">
+                  <span className="text-brand-800 font-medium">Wait Reduction:</span>
+                  <span className="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">-{simResults.improvement_pct}%</span>
+                </div>
               </div>
             </div>
           </div>
