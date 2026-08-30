@@ -19,6 +19,8 @@ import { PatientTimeline } from './pages/PatientTimeline';
 import { ResearchAnalytics } from './pages/ResearchAnalytics';
 import { Login } from './pages/Login';
 import { StartupVideo } from './components/StartupVideo';
+import { LoadingProvider } from './context/LoadingContext';
+import { LoadingScreen } from './components/ui/LoadingScreen';
 
 // Doctor workspace
 import { DoctorPatients } from './pages/doctor/DoctorPatients';
@@ -91,78 +93,81 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={
-          isAuthenticated ? <Navigate to={roleHome} replace /> : <Login onLogin={handleLogin} />
-        } />
+    <LoadingProvider>
+      <LoadingScreen />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={
+            isAuthenticated ? <Navigate to={roleHome} replace /> : <Login onLogin={handleLogin} />
+          } />
 
-        {/* Protected Routes */}
-        <Route path="/" element={
-          isAuthenticated
-            ? <Layout userRole={userRole} userName={userName} onLogout={handleLogout} />
-            : <Navigate to="/login" replace />
-        }>
-          {/* Default redirect to role home */}
-          <Route index element={<Navigate to={roleHome} replace />} />
+          {/* Protected Routes */}
+          <Route path="/" element={
+            isAuthenticated
+              ? <Layout userRole={userRole} userName={userName} onLogout={handleLogout} />
+              : <Navigate to="/login" replace />
+          }>
+            {/* Default redirect to role home */}
+            <Route index element={<Navigate to={roleHome} replace />} />
 
-          {/* ─── Super Admin ─── */}
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="model-lab" element={<ModelLab />} />
-          <Route path="experiments" element={<Experiments />} />
-          <Route path="model-monitoring" element={<ModelMonitoring />} />
-          <Route path="simulation" element={<Simulation />} />
-          <Route path="patients" element={<PatientList />} />
-          <Route path="patients/:id" element={<PatientProfile />} />
-          <Route path="monitoring" element={<Monitoring />} />
-          <Route path="ai-explain" element={<AIExplainability />} />
-          <Route path="alerts" element={<AlertCenter />} />
-          <Route path="handover" element={<Handover />} />
-          <Route path="timeline" element={<PatientTimeline />} />
-          <Route path="research" element={<ResearchAnalytics />} />
-          <Route path="settings" element={<Settings />} />
+            {/* ─── Super Admin ─── */}
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="model-lab" element={<ModelLab />} />
+            <Route path="experiments" element={<Experiments />} />
+            <Route path="model-monitoring" element={<ModelMonitoring />} />
+            <Route path="simulation" element={<Simulation />} />
+            <Route path="patients" element={<PatientList />} />
+            <Route path="patients/:id" element={<PatientProfile />} />
+            <Route path="monitoring" element={<Monitoring />} />
+            <Route path="ai-explain" element={<AIExplainability />} />
+            <Route path="alerts" element={<AlertCenter />} />
+            <Route path="handover" element={<Handover />} />
+            <Route path="timeline" element={<PatientTimeline />} />
+            <Route path="research" element={<ResearchAnalytics />} />
+            <Route path="settings" element={<Settings />} />
 
-          {/* ─── Doctor workspace ─── */}
-          <Route path="doctor/patients" element={<DoctorPatients />} />
-          <Route path="doctor/patients/:id" element={<DoctorPatientProfile />} />
-          <Route path="doctor/prescriptions" element={<DoctorPrescriptions />} />
-          <Route path="doctor/vitals" element={<DoctorVitalReports />} />
-          <Route path="doctor/lab-reports" element={<DoctorLabReports />} />
-          <Route path="doctor/followup" element={<DoctorFollowUp />} />
-          <Route path="doctor/ai-assistant" element={<DoctorAIAssistant />} />
+            {/* ─── Doctor workspace ─── */}
+            <Route path="doctor/patients" element={<DoctorPatients />} />
+            <Route path="doctor/patients/:id" element={<DoctorPatientProfile />} />
+            <Route path="doctor/prescriptions" element={<DoctorPrescriptions />} />
+            <Route path="doctor/vitals" element={<DoctorVitalReports />} />
+            <Route path="doctor/lab-reports" element={<DoctorLabReports />} />
+            <Route path="doctor/followup" element={<DoctorFollowUp />} />
+            <Route path="doctor/ai-assistant" element={<DoctorAIAssistant />} />
 
-          {/* ─── Nurse workspace ─── */}
-          <Route path="nurse/patients" element={<NursePatients />} />
-          <Route path="nurse/patients/:id" element={<NursePatientProfile />} />
-          <Route path="nurse/vitals" element={<NurseRecordVitals />} />
-          <Route path="nurse/blood-samples" element={<NurseBloodSamples />} />
-          <Route path="nurse/prescriptions" element={<NursePrescriptions />} />
-          <Route path="nurse/allergies" element={<NurseAllergiesEmergencies />} />
-          <Route path="nurse/emergencies" element={<NurseAllergiesEmergencies />} />
+            {/* ─── Nurse workspace ─── */}
+            <Route path="nurse/patients" element={<NursePatients />} />
+            <Route path="nurse/patients/:id" element={<NursePatientProfile />} />
+            <Route path="nurse/vitals" element={<NurseRecordVitals />} />
+            <Route path="nurse/blood-samples" element={<NurseBloodSamples />} />
+            <Route path="nurse/prescriptions" element={<NursePrescriptions />} />
+            <Route path="nurse/allergies" element={<NurseAllergiesEmergencies />} />
+            <Route path="nurse/emergencies" element={<NurseAllergiesEmergencies />} />
 
-          {/* ─── Department workspace ─── */}
-          <Route path="department/dashboard" element={<DeptDashboard />} />
-          <Route path="department/patients" element={<DeptPatients />} />
-          <Route path="department/doctors" element={<DeptDoctorAvailability />} />
-          <Route path="department/assignments" element={<DeptAssignments />} />
-          <Route path="department/staff" element={<DeptStaffOverview />} />
+            {/* ─── Department workspace ─── */}
+            <Route path="department/dashboard" element={<DeptDashboard />} />
+            <Route path="department/patients" element={<DeptPatients />} />
+            <Route path="department/doctors" element={<DeptDoctorAvailability />} />
+            <Route path="department/assignments" element={<DeptAssignments />} />
+            <Route path="department/staff" element={<DeptStaffOverview />} />
 
-          {/* ─── Pharmacy workspace ─── */}
-          <Route path="pharmacy/dashboard" element={<PharmDashboard />} />
-          <Route path="pharmacy/medicines" element={<PharmMedicineList />} />
-          <Route path="pharmacy/manufacturers" element={<PharmManufacturers />} />
-          <Route path="pharmacy/patient-context" element={<PharmPatientContext />} />
-          <Route path="pharmacy/allergy-alerts" element={<PharmPatientContext />} />
+            {/* ─── Pharmacy workspace ─── */}
+            <Route path="pharmacy/dashboard" element={<PharmDashboard />} />
+            <Route path="pharmacy/medicines" element={<PharmMedicineList />} />
+            <Route path="pharmacy/manufacturers" element={<PharmManufacturers />} />
+            <Route path="pharmacy/patient-context" element={<PharmPatientContext />} />
+            <Route path="pharmacy/allergy-alerts" element={<PharmPatientContext />} />
 
-          {/* ─── Laboratory workspace ─── */}
-          <Route path="lab/dashboard" element={<LabDashboard />} />
-          <Route path="lab/tests" element={<LabAvailableTests />} />
-          <Route path="lab/equipment" element={<LabEquipment />} />
-          <Route path="lab/reports" element={<LabPatientReports />} />
-          <Route path="lab/history" element={<LabReportHistory />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            {/* ─── Laboratory workspace ─── */}
+            <Route path="lab/dashboard" element={<LabDashboard />} />
+            <Route path="lab/tests" element={<LabAvailableTests />} />
+            <Route path="lab/equipment" element={<LabEquipment />} />
+            <Route path="lab/reports" element={<LabPatientReports />} />
+            <Route path="lab/history" element={<LabReportHistory />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </LoadingProvider>
   );
 }
 
