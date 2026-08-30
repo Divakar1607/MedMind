@@ -1,9 +1,32 @@
 import React, { useState } from 'react';
-import { Bot, X, MessageSquare, Maximize2, Minimize2 } from 'lucide-react';
+import { Bot, X, MessageSquare, Maximize2, Minimize2, Send } from 'lucide-react';
+
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
 
 export const ClinicalCopilot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { id: '1', role: 'assistant', content: 'Hello! I am MediAI. How can I assist you clinically today?', timestamp: new Date() }
+  ]);
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+    const newMessage: ChatMessage = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input,
+      timestamp: new Date()
+    };
+    setMessages(prev => [...prev, newMessage]);
+    setInput('');
+  };
 
   if (!isOpen) {
     return (
@@ -40,23 +63,35 @@ export const ClinicalCopilot: React.FC = () => {
         </div>
       </div>
 
-      {/* Body Placeholder */}
-      <div className="flex-1 bg-slate-50 p-4 overflow-y-auto">
-        <div className="flex flex-col items-center justify-center h-full text-slate-400 gap-3">
-          <MessageSquare className="h-8 w-8 opacity-50" />
-          <p className="text-sm">How can I assist you clinically today?</p>
-        </div>
+      {/* Chat Body */}
+      <div className="flex-1 bg-slate-50 p-4 overflow-y-auto flex flex-col gap-4">
+        {messages.map((msg) => (
+          <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm ${msg.role === 'user' ? 'bg-brand-600 text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none shadow-sm'}`}>
+              {msg.content}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Footer Placeholder */}
+      {/* Footer */}
       <div className="p-4 bg-white border-t border-slate-100 shrink-0">
-        <div className="relative">
+        <div className="relative flex items-center">
           <input 
             type="text" 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask anything about your patients..."
-            className="w-full bg-slate-100 border-transparent focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 rounded-xl pl-4 pr-12 py-3 text-sm transition-all"
-            disabled
+            className="flex-1 bg-slate-100 border-transparent focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-200 rounded-xl pl-4 pr-12 py-3 text-sm transition-all outline-none"
           />
+          <button 
+            onClick={handleSend}
+            disabled={!input.trim()}
+            className="absolute right-2 p-2 text-brand-600 hover:bg-brand-50 rounded-lg disabled:opacity-50 transition-colors"
+          >
+            <Send className="h-5 w-5" />
+          </button>
         </div>
       </div>
     </div>
