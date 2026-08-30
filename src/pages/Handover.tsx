@@ -17,7 +17,7 @@ export const Handover: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isGenerating) {
       setGenerationStep(0);
       interval = setInterval(() => {

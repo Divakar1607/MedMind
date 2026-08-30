@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
 
 type LoadingType = 'app' | 'auth' | 'patient' | 'ai_processing' | 'prediction' | 'ai_summary';
 
