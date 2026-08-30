@@ -47,6 +47,28 @@ export const AlertCenter: React.FC = () => {
         </div>
       </div>
 
+      {/* Autonomous Triage Agent Panel */}
+      <div className="bg-gradient-to-r from-brand-900 to-slate-800 rounded-xl p-5 shadow-lg border border-brand-800 text-white flex flex-col md:flex-row items-center gap-6">
+        <div className="shrink-0 relative">
+          <div className="absolute inset-0 bg-brand-500 blur-xl opacity-20 rounded-full animate-pulse" />
+          <div className="relative h-16 w-16 bg-brand-800 rounded-2xl flex items-center justify-center border border-brand-600/50 shadow-inner">
+            <ShieldAlert className="h-8 w-8 text-brand-300" />
+          </div>
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <h2 className="text-lg font-semibold text-white">Autonomous Triage Agent Active</h2>
+            <span className="flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+          </div>
+          <p className="text-sm text-brand-200 mb-3 max-w-2xl">
+            Monitoring live telemetry and labs for 42 active patients. 2 patients were recently re-prioritized based on predictive deterioration models.
+          </p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 gap-4">
         {alerts.map((alert) => {
           const patient = patients.find(p => p.id === alert.patientId);
