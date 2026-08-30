@@ -66,9 +66,18 @@ export const ClinicalCopilot: React.FC = () => {
       {/* Chat Body */}
       <div className="flex-1 bg-slate-50 p-4 overflow-y-auto flex flex-col gap-4">
         {messages.map((msg) => (
-          <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm ${msg.role === 'user' ? 'bg-brand-600 text-white rounded-br-none' : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none shadow-sm'}`}>
-              {msg.content}
+          <div key={msg.id} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+            <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${msg.role === 'user' ? 'bg-slate-200' : 'bg-brand-100 text-brand-600'}`}>
+              {msg.role === 'user' ? <div className="w-5 h-5 bg-slate-400 rounded-full" /> : <Bot className="h-5 w-5" />}
+            </div>
+            <div className={`flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'} max-w-[75%]`}>
+              <div className="flex items-center gap-2 px-1">
+                <span className="text-xs font-medium text-slate-500">{msg.role === 'user' ? 'You' : 'MediAI'}</span>
+                <span className="text-[10px] text-slate-400">{msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+              <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === 'user' ? 'bg-brand-600 text-white rounded-tr-none shadow-md' : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-sm'}`}>
+                {msg.content}
+              </div>
             </div>
           </div>
         ))}
