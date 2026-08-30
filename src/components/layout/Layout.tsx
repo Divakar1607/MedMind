@@ -9,14 +9,14 @@ interface LayoutProps {
   onLogout?: () => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ userRole, userName, onLogout }) => {
+export const Layout: React.FC<LayoutProps> = ({ userRole = 'doctor', userName, onLogout }) => {
   return (
     <div className="flex h-screen bg-background overflow-hidden">
-      <Sidebar />
-      <div className="flex flex-col flex-1 w-full">
+      <Sidebar userRole={userRole} />
+      <div className="flex flex-col flex-1 w-full min-w-0">
         <Header userRole={userRole} userName={userName} onLogout={onLogout} />
-        <main className="flex-1 overflow-y-auto p-6">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 overflow-y-auto">
+          <div className="max-w-7xl mx-auto p-6">
             <Outlet />
           </div>
         </main>
