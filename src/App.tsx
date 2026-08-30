@@ -16,8 +16,10 @@ import { Settings } from './pages/Settings';
 import { PatientTimeline } from './pages/PatientTimeline';
 import { ResearchAnalytics } from './pages/ResearchAnalytics';
 import { Login } from './pages/Login';
+import { StartupVideo } from './components/StartupVideo';
 
 function App() {
+  const [hasSeenVideo, setHasSeenVideo] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState('Doctor');
   const [userName, setUserName] = useState('Dr. Arun Kumar');
@@ -30,7 +32,12 @@ function App() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setHasSeenVideo(true);
   };
+
+  if (!hasSeenVideo && !isAuthenticated) {
+    return <StartupVideo onComplete={() => setHasSeenVideo(true)} />;
+  }
 
   return (
     <BrowserRouter>

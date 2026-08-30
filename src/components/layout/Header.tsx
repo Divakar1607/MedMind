@@ -15,9 +15,9 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="h-16 bg-surface border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-xs">
       <div className="flex items-center gap-4 flex-1">
-        <div className="flex items-center gap-2 px-3 py-1 bg-brand-50 border border-brand-200 rounded-full text-xs font-semibold text-brand-800">
-          <Sparkles className="h-3.5 w-3.5 text-brand-600 animate-pulse" />
-          <span>MediAI Intelligence Platform</span>
+        <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 border border-slate-200 rounded-full text-xs font-bold text-slate-900 shadow-2xs">
+          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-4 w-4 rounded-xs object-cover" />
+          <span>MedMind AI Clinical Intelligence</span>
         </div>
         <div className="relative w-full max-w-xs hidden lg:block">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
