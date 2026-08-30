@@ -96,11 +96,24 @@ export const Simulation: React.FC = () => {
             </button>
           </div>
           
-          <div className="mt-4 flex gap-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase">Try:</span>
-            <button className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Simulate a mass casualty event with 300 patients"</button>
-            <button className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Optimize doctor count for 100 high-risk patients"</button>
-          </div>
+          {isAnalyzing && (
+            <div className="mt-4 bg-slate-900 border border-slate-700 rounded-lg p-3 text-xs text-brand-300 font-mono flex items-center gap-3">
+               <div className="flex gap-1 items-center">
+                 <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                 <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                 <div className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-bounce"></div>
+               </div>
+               <span>Agent is parsing natural language, configuring simulation parameters, and preparing environment...</span>
+            </div>
+          )}
+
+          {!isAnalyzing && (
+            <div className="mt-4 flex gap-2">
+              <span className="text-xs font-semibold text-slate-400 uppercase">Try:</span>
+              <button onClick={() => setResearchPrompt("Simulate a mass casualty event with 300 patients")} className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Simulate a mass casualty event with 300 patients"</button>
+              <button onClick={() => setResearchPrompt("Optimize doctor count for 100 high-risk patients")} className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Optimize doctor count for 100 high-risk patients"</button>
+            </div>
+          )}
         </div>
       </div>
 
