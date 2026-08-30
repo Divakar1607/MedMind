@@ -66,13 +66,21 @@ export const PatientList: React.FC = () => {
       </div>
 
       {/* AI Triage Banner */}
-      <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="bg-brand-600 text-white p-2 rounded-lg">
+      <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 flex items-center justify-between relative overflow-hidden group">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-100/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+        <div className="flex items-center gap-3 relative z-10">
+          <div className="bg-brand-600 text-white p-2 rounded-lg relative">
             <Activity className="h-5 w-5" />
+            <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full border-2 border-brand-50 animate-pulse" />
           </div>
           <div>
-            <h3 className="text-brand-900 font-semibold text-sm">Autonomous Triage Agent is active</h3>
+            <h3 className="text-brand-900 font-semibold text-sm flex items-center gap-2">
+              Autonomous Triage Agent is active
+              <span className="flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+            </h3>
             <p className="text-brand-700 text-xs">Patients are automatically sorted by AI-predicted clinical deterioration risk.</p>
           </div>
         </div>
