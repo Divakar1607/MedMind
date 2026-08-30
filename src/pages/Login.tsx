@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  Shield, 
-  Stethoscope, 
+import {
+  Shield,
+  Stethoscope,
   HeartPulse,
-  Building2, 
-  Pill, 
-  TestTube, 
-  ArrowLeft, 
-  Eye, 
-  EyeOff, 
-  Lock, 
-  User, 
+  Building2,
+  Pill,
+  TestTube,
+  ArrowLeft,
+  Eye,
+  EyeOff,
+  Lock,
+  User,
   Activity,
   ShieldCheck,
   ChevronRight
@@ -111,7 +111,7 @@ const ROLES: RoleConfig[] = [
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [step, setStep] = useState<'SELECT_ROLE' | 'ENTER_CREDENTIALS'>('SELECT_ROLE');
   const [selectedRole, setSelectedRole] = useState<RoleConfig | null>(null);
-  
+
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('password123');
   const [showPassword, setShowPassword] = useState(false);
@@ -157,12 +157,12 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen bg-slate-100/70 flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 font-sans antialiased text-slate-900">
-      
+
       {/* Branding Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-xl text-center">
         <div className="flex justify-center items-center gap-3 text-slate-900">
-          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-14 w-14 rounded-xl object-contain border border-slate-200/80 shadow-md bg-white p-1" />
-          <span className="text-3xl font-bold tracking-tight text-slate-900">MedMind AI</span>
+          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-10 w-10 rounded-lg object-contain border border-slate-200 shadow-sm bg-white p-0.5" />
+          <span className="text-2xl font-bold tracking-tight text-slate-900">MedMind AI</span>
         </div>
         <p className="text-xs font-semibold uppercase tracking-wider text-brand-700 mt-1">
           Clinical Intelligence Platform
@@ -177,7 +177,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-xl">
         <div className="bg-white py-7 px-6 shadow-sm border border-slate-200 sm:rounded-xl sm:px-8">
-          
+
           {/* STEP 1: SELECT YOUR ROLE */}
           {step === 'SELECT_ROLE' && (
             <div className="space-y-4">

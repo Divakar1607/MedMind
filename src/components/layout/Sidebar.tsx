@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
+import {
+  LayoutDashboard,
   FlaskConical,
   BookOpen,
-  Activity, 
+  Activity,
   BrainCircuit,
   Users,
   History,
@@ -41,7 +41,7 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="flex-1 overflow-y-auto py-4">
         <div className="px-4 mb-2">
           <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">AI Platform Views</p>

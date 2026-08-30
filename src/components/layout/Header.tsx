@@ -7,16 +7,16 @@ interface HeaderProps {
   onLogout?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ 
-  userRole = 'Doctor', 
+export const Header: React.FC<HeaderProps> = ({
+  userRole = 'Doctor',
   userName = 'Dr. Arun Kumar',
-  onLogout 
+  onLogout
 }) => {
   return (
     <header className="h-16 bg-surface border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-xs">
       <div className="flex items-center gap-4 flex-1">
         <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 border border-slate-200 rounded-full text-xs font-bold text-slate-900 shadow-2xs">
-          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-4 w-4 rounded-xs object-cover" />
+          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-4 w-4 rounded-xs object-contain" />
           <span>MedMind AI Clinical Intelligence</span>
         </div>
         <div className="relative w-full max-w-xs hidden lg:block">
@@ -30,19 +30,19 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
       </div>
-      
+
       <div className="flex items-center gap-4">
         <div className="hidden md:flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 rounded text-xs text-amber-800">
           <ShieldAlert className="h-3.5 w-3.5 text-amber-600" />
           <span>Research Prototype — Human Review Required</span>
         </div>
-        
+
         <button className="relative p-2 text-slate-400 hover:text-slate-500 transition-colors rounded-full hover:bg-slate-100">
           <span className="sr-only">View notifications</span>
           <Bell className="h-5 w-5" />
           <span className="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-risk-critical ring-2 ring-white" />
         </button>
-        
+
         <div className="flex items-center gap-3 border-l border-slate-200 pl-4 ml-2">
           <div className="flex flex-col items-end hidden sm:flex">
             <span className="text-sm font-semibold text-slate-900 leading-none">{userName}</span>
