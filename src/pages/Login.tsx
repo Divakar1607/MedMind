@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
   Shield, 
   Stethoscope, 
+  HeartPulse,
   Building2, 
   Pill, 
   TestTube, 
@@ -56,6 +57,18 @@ const ROLES: RoleConfig[] = [
     description: 'Patient intelligence, clinical trends, AI predictions, explanations and AI-assisted clinical review.',
     color: 'text-brand-700 bg-brand-50 border-brand-200 hover:border-brand-300',
     badgeBg: 'bg-brand-100 text-brand-800 border-brand-200'
+  },
+  {
+    id: 'nurse',
+    badge: 'NURSE',
+    title: 'Nurse',
+    loginHeading: 'Nurse Login',
+    defaultUsername: 'nurse.station',
+    roleTitle: 'Nursing Care & Vital Monitoring',
+    icon: HeartPulse,
+    description: 'Continuous vital monitoring, nursing notes, bedside patient status and deterioration alerts.',
+    color: 'text-cyan-700 bg-cyan-50 border-cyan-200 hover:border-cyan-300',
+    badgeBg: 'bg-cyan-100 text-cyan-800 border-cyan-200'
   },
   {
     id: 'department',
