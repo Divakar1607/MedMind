@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Clock, CheckCircle, Search, Filter, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, Search, Filter, ShieldAlert, Bot } from 'lucide-react';
 import { api } from '../services/api';
 import type { Alert } from '../types/alert';
 import type { Patient } from '../types/patient';
@@ -112,13 +112,36 @@ export const AlertCenter: React.FC = () => {
                     <p className="text-sm text-slate-500 mb-3">
                       Patient: <span className="font-semibold text-slate-700">{patient?.name} ({patient?.room})</span> • AI Confidence High
                     </p>
-                    <div className="bg-white border border-slate-100 rounded p-3 text-sm">
-                      <p className="font-semibold text-slate-700 mb-1">Clinical Factors:</p>
-                      <ul className="list-disc list-inside text-slate-600 space-y-1">
-                        {alert.clinicalFactors.map((factor, idx) => (
-                          <li key={idx}>{factor}</li>
-                        ))}
-                      </ul>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full">
+                      <div className="flex-1 bg-white border border-slate-100 rounded p-3 text-sm">
+                        <p className="font-semibold text-slate-700 mb-1">Clinical Factors:</p>
+                        <ul className="list-disc list-inside text-slate-600 space-y-1">
+                          {alert.clinicalFactors.map((factor, idx) => (
+                            <li key={idx}>{factor}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      {/* AI Reasoning Tooltip / Panel */}
+                      <div className="flex-1 bg-brand-50 border border-brand-100 rounded p-3 text-sm relative group cursor-help">
+                        <div className="flex items-center gap-1.5 font-semibold text-brand-800 mb-1">
+                          <Bot className="h-4 w-4" /> AI Reasoning
+                        </div>
+                        <p className="text-brand-700/80 leading-relaxed">
+                          Based on a 15% increase in respiratory rate and 20% drop in MAP over the last 4 hours, temporal predictive models indicate high risk of clinical deterioration (sepsis trajectory).
+                        </p>
+                        
+                        {/* Hover detailed explanation */}
+                        <div className="absolute hidden group-hover:block bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 bg-slate-900 text-white text-xs p-3 rounded-lg shadow-xl z-50">
+                          <div className="font-semibold text-brand-300 mb-1">SHAP Value Breakdown:</div>
+                          <div className="space-y-1">
+                            <div className="flex justify-between"><span>Resp Rate (24):</span> <span className="text-red-400">+45% risk</span></div>
+                            <div className="flex justify-between"><span>MAP (62):</span> <span className="text-red-400">+30% risk</span></div>
+                            <div className="flex justify-between"><span>Lactate (2.1):</span> <span className="text-red-400">+10% risk</span></div>
+                          </div>
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
