@@ -18,7 +18,7 @@ import { ResearchAnalytics } from './pages/ResearchAnalytics';
 import { Login } from './pages/Login';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <BrowserRouter>
