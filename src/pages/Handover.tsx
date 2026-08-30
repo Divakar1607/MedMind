@@ -175,8 +175,17 @@ export const Handover: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex-1 bg-slate-50 border border-slate-200 rounded-md p-4 whitespace-pre-wrap text-sm text-slate-800 font-mono shadow-inner mb-4 overflow-y-auto">
-                  {report}
+                <div className="flex-1 bg-white border border-slate-200 rounded-lg p-5 shadow-sm mb-4 overflow-y-auto flex flex-col">
+                  <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                     <div className="flex items-center gap-2 text-brand-700">
+                       <Bot className="h-4 w-4" />
+                       <span className="text-xs font-bold uppercase tracking-wider">MediAI Synthesized Report</span>
+                     </div>
+                     <span className="text-xs text-slate-400">Generated {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <div className="whitespace-pre-wrap text-sm text-slate-800 font-mono leading-relaxed">
+                    {report}
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-end gap-3 mt-auto pt-4 border-t border-slate-100">
