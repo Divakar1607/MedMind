@@ -8,12 +8,30 @@ export const Handover: React.FC = () => {
   const [selectedPatientId, setSelectedPatientId] = useState<string>('');
   const [receivingFacility, setReceivingFacility] = useState('General Hospital - ICU Step-down');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationStep, setGenerationStep] = useState(0);
   const [report, setReport] = useState<string | null>(null);
   const [isApproved, setIsApproved] = useState(false);
 
   useEffect(() => {
     api.getPatients().then(setPatients);
   }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isGenerating) {
+      setGenerationStep(0);
+      interval = setInterval(() => {
+        setGenerationStep(prev => {
+          if (prev >= 3) {
+            clearInterval(interval);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 800);
+    }
+    return () => clearInterval(interval);
+  }, [isGenerating]);
 
   const handleGenerate = async () => {
     if (!selectedPatientId) return;
@@ -22,12 +40,35 @@ export const Handover: React.FC = () => {
     setIsApproved(false);
     try {
       const result = await api.generateHandover(selectedPatientId, receivingFacility);
-      setReport(result.report);
+      setTimeout(() => {
+        setReport(result.report);
+        setIsGenerating(false);
+      }, 3500); // Wait for animations to finish
     } catch (e) {
       console.error(e);
-    } finally {
       setIsGenerating(false);
     }
+  };
+
+  const getStepUI = (stepIndex: number, text: string) => {
+    const isCompleted = generationStep > stepIndex;
+    const isActive = generationStep === stepIndex;
+    const isPending = generationStep < stepIndex;
+
+    return (
+      <div className={`flex items-center gap-4 transition-all duration-500 ${isPending ? 'opacity-30' : 'opacity-100'}`}>
+        {isCompleted ? (
+          <CheckCircle className="h-5 w-5 text-emerald-500" />
+        ) : isActive ? (
+          <Loader2 className="h-5 w-5 animate-spin text-brand-600" />
+        ) : (
+          <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
+        )}
+        <span className={`${isActive ? 'font-semibold text-brand-800' : isCompleted ? 'text-slate-600' : 'text-slate-400'}`}>
+          {text}
+        </span>
+      </div>
+    );
   };
 
   return (
@@ -116,27 +157,10 @@ export const Handover: React.FC = () => {
                   
                   {/* Thought Process Steps Container */}
                   <div className="flex-1 flex flex-col justify-center space-y-6 px-4">
-                     
-                     <div className="flex items-center gap-4 text-brand-700">
-                       <Loader2 className="h-5 w-5 animate-spin" />
-                       <span className="font-medium">Fetching 48-hour vital sign trends...</span>
-                     </div>
-                     
-                     <div className="flex items-center gap-4 text-slate-400">
-                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
-                       <span>Analyzing nursing shift notes & interventions...</span>
-                     </div>
-
-                     <div className="flex items-center gap-4 text-slate-400">
-                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
-                       <span>Synthesizing medication administration records...</span>
-                     </div>
-                     
-                     <div className="flex items-center gap-4 text-slate-400">
-                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
-                       <span>Drafting standardized SBAR handover report...</span>
-                     </div>
-
+                     {getStepUI(0, "Fetching 48-hour vital sign trends...")}
+                     {getStepUI(1, "Analyzing nursing shift notes & interventions...")}
+                     {getStepUI(2, "Synthesizing medication administration records...")}
+                     {getStepUI(3, "Drafting standardized SBAR handover report...")}
                   </div>
                 </div>
               </div>
