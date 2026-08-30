@@ -12,20 +12,43 @@ export const ClinicalCopilot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     { id: '1', role: 'assistant', content: 'Hello! I am MediAI. How can I assist you clinically today?', timestamp: new Date() }
   ]);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isTyping) return;
+    
     const newMessage: ChatMessage = {
       id: Date.now().toString(),
       role: 'user',
       content: input,
       timestamp: new Date()
     };
+    
     setMessages(prev => [...prev, newMessage]);
     setInput('');
+    setIsTyping(true);
+
+    // Mock LLM response
+    setTimeout(() => {
+      const mockResponses = [
+        "Based on the latest lab results, the patient's creatinine levels have stabilized.",
+        "I have checked the handover notes. The patient experienced mild tachycardia overnight but is currently stable.",
+        "Would you like me to generate a summary of the current vital trends?"
+      ];
+      
+      const assistantMessage: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: mockResponses[Math.floor(Math.random() * mockResponses.length)],
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, assistantMessage]);
+      setIsTyping(false);
+    }, 1500);
   };
 
   if (!isOpen) {
@@ -81,6 +104,23 @@ export const ClinicalCopilot: React.FC = () => {
             </div>
           </div>
         ))}
+        {isTyping && (
+          <div className="flex gap-3 flex-row">
+            <div className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-brand-100 text-brand-600">
+              <Bot className="h-5 w-5" />
+            </div>
+            <div className="flex flex-col gap-1 items-start max-w-[75%]">
+              <div className="flex items-center gap-2 px-1">
+                <span className="text-xs font-medium text-slate-500">MediAI</span>
+              </div>
+              <div className="rounded-2xl px-4 py-4 text-sm leading-relaxed bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-sm flex items-center gap-1">
+                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Footer */}
