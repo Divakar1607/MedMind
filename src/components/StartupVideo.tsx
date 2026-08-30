@@ -35,7 +35,8 @@ export const StartupVideo: React.FC<StartupVideoProps> = ({ onComplete }) => {
     }
   }, []);
 
-  const toggleMute = () => {
+  const toggleMute = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (videoRef.current) {
       const nextMuted = !videoRef.current.muted;
       videoRef.current.muted = nextMuted;
@@ -47,7 +48,8 @@ export const StartupVideo: React.FC<StartupVideoProps> = ({ onComplete }) => {
     }
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
@@ -84,66 +86,65 @@ export const StartupVideo: React.FC<StartupVideoProps> = ({ onComplete }) => {
         className="w-full h-full object-cover fixed inset-0 z-0"
       />
 
-      {/* Subtle Audio Alert if Autoplay Unmute was Blocked */}
+      {/* TOP LEFT CORNER: Mute / Unmute & Play/Pause Controls */}
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className="absolute top-6 left-6 z-50 flex items-center gap-2.5 bg-slate-950/80 backdrop-blur border border-slate-800/80 p-1.5 pr-4 rounded-full shadow-2xl"
+      >
+        <button
+          type="button"
+          onClick={toggleMute}
+          className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-800/90 hover:bg-slate-700 text-white text-xs font-bold transition-all border border-slate-700/80"
+        >
+          {isMuted ? (
+            <>
+              <VolumeX className="h-4 w-4 text-amber-400 shrink-0" />
+              <span>Unmute Audio</span>
+            </>
+          ) : (
+            <>
+              <Volume2 className="h-4 w-4 text-emerald-400 shrink-0" />
+              <span>Mute Audio</span>
+            </>
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={handlePlayPause}
+          className="p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition-all border border-slate-700/80"
+          title={isPlaying ? 'Pause' : 'Play'}
+        >
+          {isPlaying ? (
+            <Pause className="h-4 w-4 text-slate-300" />
+          ) : (
+            <Play className="h-4 w-4 text-emerald-400" />
+          )}
+        </button>
+      </div>
+
+      {/* TOP RIGHT CORNER: Skip Video Button */}
+      <div 
+        onClick={(e) => e.stopPropagation()}
+        className="absolute top-6 right-6 z-50"
+      >
+        <button
+          type="button"
+          onClick={onComplete}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-600/90 hover:bg-brand-500 text-white text-xs font-bold transition-all shadow-xl hover:shadow-brand-500/30 backdrop-blur border border-brand-400/30"
+        >
+          <span>Skip Video</span>
+          <SkipForward className="h-4 w-4 shrink-0" />
+        </button>
+      </div>
+
+      {/* Autoplay Audio Notification if restricted */}
       {audioBlocked && (
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-50 bg-amber-500/90 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs shadow-lg animate-bounce flex items-center gap-2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 bg-amber-500/90 text-slate-950 font-bold px-4 py-2 rounded-full text-xs shadow-xl animate-bounce flex items-center gap-2">
           <VolumeX className="h-4 w-4 shrink-0" />
           <span>Click anywhere to enable full sound!</span>
         </div>
       )}
-
-      {/* Controls Overlay at Bottom Center */}
-      <div 
-        onClick={(e) => e.stopPropagation()}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-6 py-3.5 flex items-center justify-between gap-4 bg-slate-950/80 backdrop-blur border border-slate-800 rounded-full shadow-2xl"
-      >
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={toggleMute}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-800/90 hover:bg-slate-700 text-white text-xs font-bold transition-all border border-slate-700"
-          >
-            {isMuted ? (
-              <>
-                <VolumeX className="h-4 w-4 text-amber-400" />
-                <span>Unmute Audio</span>
-              </>
-            ) : (
-              <>
-                <Volume2 className="h-4 w-4 text-emerald-400" />
-                <span>Mute Audio</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={handlePlayPause}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700"
-          >
-            {isPlaying ? (
-              <>
-                <Pause className="h-3.5 w-3.5 text-slate-300" />
-                <span>Pause</span>
-              </>
-            ) : (
-              <>
-                <Play className="h-3.5 w-3.5 text-emerald-400" />
-                <span>Play</span>
-              </>
-            )}
-          </button>
-        </div>
-
-        <button
-          type="button"
-          onClick={onComplete}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold transition-all shadow-lg hover:shadow-brand-500/30"
-        >
-          <span>Skip Intro</span>
-          <SkipForward className="h-4 w-4" />
-        </button>
-      </div>
     </div>
   );
 };
