@@ -31,4 +31,19 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .animate-progress {
+    animation: progress 2s ease-in-out infinite;
+  }
+
+  /* AI Agent Shared Utility Classes */
+  .ai-glow {
+    box-shadow: 0 0 15px 0 rgba(79, 70, 229, 0.3);
+  }
+  
+  .ai-gradient-text {
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
