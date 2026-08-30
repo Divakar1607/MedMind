@@ -121,10 +121,10 @@ export const Handover: React.FC = () => {
               <button 
                 onClick={handleGenerate}
                 disabled={!selectedPatientId || isGenerating}
-                className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition-colors"
+                className={`w-full mt-4 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all ${isGenerating ? 'bg-brand-500 animate-pulse' : 'bg-brand-600 hover:bg-brand-700 disabled:opacity-50'}`}
               >
-                {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileText className="h-4 w-4" />}
-                {isGenerating ? 'Generating...' : 'Generate AI Handover'}
+                {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bot className="h-4 w-4" />}
+                {isGenerating ? 'AI is Generating...' : 'Generate AI Handover'}
               </button>
             </div>
           </div>
