@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlayCircle, Users, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { PlayCircle, Users, Clock, ShieldCheck, ArrowRight, Bot } from 'lucide-react';
 
 export const Simulation: React.FC = () => {
   const [patientCount, setPatientCount] = useState<number>(100);
@@ -39,6 +39,41 @@ export const Simulation: React.FC = () => {
         <p className="text-sm text-slate-500 mt-1">
           Discrete-event queue workflow simulator contrasting First-Come-First-Served (FCFS) vs AI Risk-Aware Priority Queue.
         </p>
+      </div>
+
+      {/* Research Assistant Conversational UI */}
+      <div className="bg-gradient-to-br from-slate-900 to-brand-950 rounded-xl p-6 shadow-xl border border-brand-800 relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+          <Bot className="w-32 h-32 text-brand-300" />
+        </div>
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-brand-500/20 p-2 rounded-lg text-brand-300 border border-brand-500/30">
+              <Bot className="h-5 w-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Research Assistant</h2>
+              <p className="text-sm text-brand-200">Configure simulations using natural language</p>
+            </div>
+          </div>
+          
+          <div className="flex gap-3">
+            <input 
+              type="text" 
+              placeholder="e.g., Run a simulation with 500 patients and 12 doctors focusing on high-risk sepsis..."
+              className="flex-1 bg-slate-800/50 border border-slate-700 text-white placeholder-slate-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+            />
+            <button className="bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors">
+              Analyze <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+          
+          <div className="mt-4 flex gap-2">
+            <span className="text-xs font-semibold text-slate-400 uppercase">Try:</span>
+            <button className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Simulate a mass casualty event with 300 patients"</button>
+            <button className="text-xs text-brand-300 hover:text-white transition-colors bg-brand-900/50 px-2 py-1 rounded border border-brand-800">"Optimize doctor count for 100 high-risk patients"</button>
+          </div>
+        </div>
       </div>
 
       <div className="bg-surface rounded-lg shadow-sm border border-slate-200 p-5 space-y-4">
