@@ -20,7 +20,15 @@ export const PatientList: React.FC = () => {
   const filteredPatients = patients.filter(p => 
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     p.mrn.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ).sort((a, b) => {
+    const priorityOrder: Record<string, number> = {
+      'Critical': 0,
+      'High': 1,
+      'Moderate': 2,
+      'Stable': 3
+    };
+    return (priorityOrder[a.priority] ?? 4) - (priorityOrder[b.priority] ?? 4);
+  });
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -54,6 +62,19 @@ export const PatientList: React.FC = () => {
             <Filter className="h-4 w-4" />
             Filter
           </button>
+        </div>
+      </div>
+
+      {/* AI Triage Banner */}
+      <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="bg-brand-600 text-white p-2 rounded-lg">
+            <Activity className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-brand-900 font-semibold text-sm">Autonomous Triage Agent is active</h3>
+            <p className="text-brand-700 text-xs">Patients are automatically sorted by AI-predicted clinical deterioration risk.</p>
+          </div>
         </div>
       </div>
 
