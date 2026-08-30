@@ -19,17 +19,37 @@ import { Login } from './pages/Login';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState('Doctor');
+  const [userName, setUserName] = useState('Dr. Arun Kumar');
+
+  const handleLogin = (role: string, username: string) => {
+    setUserRole(role);
+    setUserName(username || 'Clinical User');
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={
-          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login onLogin={() => setIsAuthenticated(true)} />
+          isAuthenticated ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Login onLogin={handleLogin} />
+          )
         } />
         
         {/* Protected Routes */}
         <Route path="/" element={
-          isAuthenticated ? <Layout /> : <Navigate to="/login" replace />
+          isAuthenticated ? (
+            <Layout userRole={userRole} userName={userName} onLogout={handleLogout} />
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />

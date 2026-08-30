@@ -1,13 +1,23 @@
 import React from 'react';
-import { Bell, Search, User, ShieldAlert, Sparkles } from 'lucide-react';
+import { Bell, Search, User, ShieldAlert, Sparkles, LogOut } from 'lucide-react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  userRole?: string;
+  userName?: string;
+  onLogout?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ 
+  userRole = 'Doctor', 
+  userName = 'Dr. Arun Kumar',
+  onLogout 
+}) => {
   return (
-    <header className="h-16 bg-surface border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-sm">
+    <header className="h-16 bg-surface border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-xs">
       <div className="flex items-center gap-4 flex-1">
         <div className="flex items-center gap-2 px-3 py-1 bg-brand-50 border border-brand-200 rounded-full text-xs font-semibold text-brand-800">
           <Sparkles className="h-3.5 w-3.5 text-brand-600 animate-pulse" />
-          <span>AI Research Engine v2.0</span>
+          <span>MediAI Intelligence Platform</span>
         </div>
         <div className="relative w-full max-w-xs hidden lg:block">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -35,12 +45,25 @@ export const Header: React.FC = () => {
         
         <div className="flex items-center gap-3 border-l border-slate-200 pl-4 ml-2">
           <div className="flex flex-col items-end hidden sm:flex">
-            <span className="text-sm font-medium text-slate-900 leading-none">AI Lead Investigator</span>
-            <span className="text-xs text-slate-500 mt-1">Clinical AI Research</span>
+            <span className="text-sm font-semibold text-slate-900 leading-none">{userName}</span>
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-700 bg-brand-50 px-1.5 py-0.5 rounded border border-brand-200 mt-1">
+              {userRole}
+            </span>
           </div>
           <div className="h-8 w-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 border border-brand-200">
             <User className="h-4 w-4" />
           </div>
+
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              title="Sign Out"
+              className="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-red-700 hover:bg-red-50 p-1.5 rounded border border-slate-200 hover:border-red-200 transition-colors ml-1"
+            >
+              <LogOut className="h-4 w-4" />
+              <span className="hidden lg:inline">Sign Out</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
