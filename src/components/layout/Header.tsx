@@ -16,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="h-16 bg-surface border-b border-slate-200 flex items-center justify-between px-6 z-10 shadow-xs">
       <div className="flex items-center gap-4 flex-1">
         <div className="flex items-center gap-2 px-3 py-1 bg-slate-50 border border-slate-200 rounded-full text-xs font-bold text-slate-900 shadow-2xs">
-          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-4 w-4 rounded-xs object-contain" />
+          <img src="/logo.png" alt="MedMind AI Logo" className="h-5 w-5 object-contain shrink-0" />
           <span>MedMind AI Clinical Intelligence</span>
         </div>
         <div className="relative w-full max-w-xs hidden lg:block">

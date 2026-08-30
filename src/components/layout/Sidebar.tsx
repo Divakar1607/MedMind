@@ -34,7 +34,7 @@ export const Sidebar: React.FC = () => {
     <div className="w-64 bg-surface border-r border-slate-200 flex flex-col shadow-sm z-10 hidden md:flex">
       <div className="h-16 flex items-center px-6 border-b border-slate-200">
         <div className="flex items-center gap-2.5 text-slate-900">
-          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-7 w-7 rounded-md object-cover border border-slate-200" />
+          <img src="/logo.png" alt="MedMind AI Logo" className="h-7 w-7 object-contain shrink-0" />
           <div className="flex flex-col">
             <span className="text-base font-bold tracking-tight leading-none">MedMind AI</span>
             <span className="text-[10px] text-slate-500 font-medium mt-0.5">Clinical Intelligence</span>

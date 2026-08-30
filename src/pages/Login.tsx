@@ -161,8 +161,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
       {/* Branding Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-xl text-center">
         <div className="flex justify-center items-center gap-3 text-slate-900">
-          <img src="/logo.jpg" alt="MedMind AI Logo" className="h-10 w-10 rounded-lg object-contain border border-slate-200 shadow-sm bg-white p-0.5" />
-          <span className="text-2xl font-bold tracking-tight text-slate-900">MedMind AI</span>
+          <img src="/logo.png" alt="MedMind AI Logo" className="h-12 w-12 object-contain shrink-0 drop-shadow-xs" />
+          <span className="text-3xl font-bold tracking-tight text-slate-900">MedMind AI</span>
         </div>
         <p className="text-xs font-semibold uppercase tracking-wider text-brand-700 mt-1">
           Clinical Intelligence Platform
