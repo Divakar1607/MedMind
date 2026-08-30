@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRightLeft, FileText, CheckCircle, Hospital, Loader2, Download, AlertTriangle } from 'lucide-react';
+import { ArrowRightLeft, FileText, CheckCircle, Hospital, Loader2, Download, AlertTriangle, Bot } from 'lucide-react';
 import type { Patient } from '../types/patient';
 import { api } from '../services/api';
 
@@ -101,10 +101,24 @@ export const Handover: React.FC = () => {
             )}
 
             {isGenerating && (
-              <div className="flex-1 flex flex-col items-center justify-center text-slate-500 border-2 border-slate-100 rounded-lg p-6 bg-slate-50">
-                <Loader2 className="h-10 w-10 animate-spin text-brand-500 mb-4" />
-                <p className="font-medium">Synthesizing clinical notes and vitals...</p>
-                <p className="text-xs text-slate-400 mt-2">AI is reviewing the patient timeline</p>
+              <div className="flex-1 flex flex-col border border-brand-200 rounded-lg p-6 bg-slate-50 relative overflow-hidden">
+                <div className="absolute inset-0 bg-brand-50/50" />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-brand-200">
+                    <div className="bg-brand-100 p-2 rounded-lg text-brand-600">
+                      <Bot className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-brand-900">Clinical Handover Agent</h4>
+                      <p className="text-xs text-brand-700">Synthesizing clinical timeline and vitals...</p>
+                    </div>
+                  </div>
+                  
+                  {/* Thought Process Steps Container */}
+                  <div className="flex-1 flex flex-col justify-center space-y-4 px-4">
+                     {/* Steps will be added in next commit */}
+                  </div>
+                </div>
               </div>
             )}
 
