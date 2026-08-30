@@ -66,6 +66,20 @@ export const AlertCenter: React.FC = () => {
           <p className="text-sm text-brand-200 mb-3 max-w-2xl">
             Monitoring live telemetry and labs for 42 active patients. 2 patients were recently re-prioritized based on predictive deterioration models.
           </p>
+          <div className="flex items-center gap-4 text-xs font-medium text-brand-300">
+            <div className="flex items-center gap-1.5 bg-brand-800/50 px-3 py-1.5 rounded-md border border-brand-700/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+              1 Critical (AI Flagged)
+            </div>
+            <div className="flex items-center gap-1.5 bg-brand-800/50 px-3 py-1.5 rounded-md border border-brand-700/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+              1 Moderate (Elevated Risk)
+            </div>
+            <div className="flex items-center gap-1.5 bg-brand-800/50 px-3 py-1.5 rounded-md border border-brand-700/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              40 Stable
+            </div>
+          </div>
         </div>
       </div>
 
