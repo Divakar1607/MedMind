@@ -115,8 +115,28 @@ export const Handover: React.FC = () => {
                   </div>
                   
                   {/* Thought Process Steps Container */}
-                  <div className="flex-1 flex flex-col justify-center space-y-4 px-4">
-                     {/* Steps will be added in next commit */}
+                  <div className="flex-1 flex flex-col justify-center space-y-6 px-4">
+                     
+                     <div className="flex items-center gap-4 text-brand-700">
+                       <Loader2 className="h-5 w-5 animate-spin" />
+                       <span className="font-medium">Fetching 48-hour vital sign trends...</span>
+                     </div>
+                     
+                     <div className="flex items-center gap-4 text-slate-400">
+                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
+                       <span>Analyzing nursing shift notes & interventions...</span>
+                     </div>
+
+                     <div className="flex items-center gap-4 text-slate-400">
+                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
+                       <span>Synthesizing medication administration records...</span>
+                     </div>
+                     
+                     <div className="flex items-center gap-4 text-slate-400">
+                       <div className="h-5 w-5 rounded-full border-2 border-slate-300" />
+                       <span>Drafting standardized SBAR handover report...</span>
+                     </div>
+
                   </div>
                 </div>
               </div>
